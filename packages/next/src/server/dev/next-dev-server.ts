@@ -563,7 +563,9 @@ export default class DevServer extends Server {
         ))
         await instrumentationHook.register()
       } catch (err: any) {
-        err.message = `An error occurred while loading instrumentation hook: ${err.message}`
+        if (err instanceof Error) {
+          err.message = `An error occurred while loading instrumentation hook: ${err.message}`
+        }
         throw err
       }
     }
